@@ -46,7 +46,5 @@ export default {
 </script>
 
 <style>
-  #app {
-    font-size: 24px;
-  }
+
 </style>

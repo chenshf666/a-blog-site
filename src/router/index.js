@@ -37,7 +37,7 @@ export default new Router({
     component: writeBlog,
   },
   {
-    path:'/singleBlog/:content',
+    path:'/singleBlog/:id',
     name:'singleBlog',
     component: singleBlog,
   }

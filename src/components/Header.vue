@@ -35,6 +35,8 @@ export default {
   .outer{
     display: flex;
     justify-content: center;
+    z-index: 1;
+    background: white;
   }
 
 </style>

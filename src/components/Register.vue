@@ -48,9 +48,6 @@ export default {
 </script>
 
 <style scoped>
-  *{
-    font-size: inherit;
-  }
   .register-box input{
     display: block;
     margin: auto;
