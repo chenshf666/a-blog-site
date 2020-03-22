@@ -1,5 +1,5 @@
 <template>
-   <div class="blog_container" @scroll="check">
+   <div class="blog_container" @scroll="lazyload">
     <div class="whole_blog">
       <div class="zhanwei"></div>
       <div class="blog_title">{{title}}</div>
@@ -40,33 +40,45 @@ export default {
       this.time = response.data.create_time
       this.urls = JSON.parse(response.data.img_urls)
 
-
-      //获取所有图像，没有指定src说明是上传的图片
+      // 获取所有图像，没有指定src说明是上传的图片
       let allImgs = document.getElementsByTagName('img')
       for (let i of allImgs) {
         if (!i.src) {
-          i.width= i.height = '501px';
+          i.width = i.height = '501' // 赋予假的宽高，适当占位
           this.imgs.push(i)
         }
       }
       this.check()
-      // this.content = response.data.content
     }).catch((err) => {
       console.log(err)
     })
   },
   methods: {
-    lazyload(){
-      
+    lazyload () {
+      var timer = null
+      if (timer == null) {
+        timer = setTimeout(() => {
+          this.check()
+          timer = null
+        }, 1000)
+      }
     },
     check () {
-      this.imgs.forEach((item, index) => {
-        if (!item.src && this.isInScreen(item)) {
+      for (var index = this.imgs.length - 1; index > -1; index--) {
+        let item = this.imgs[index]
+        if (!item.src && this.isInScreen(index, item)) {
           item.src = 'http://localhost:8000' + this.urls[index]
+          // onload之后去除假的宽高，还原图像自身大小
+          item.onload = () => {
+            item.removeAttribute('width')
+            item.removeAttribute('height')
+          }
+          this.imgs.splice(index, 1) // 及时从数组从去除，防止无意义计算
+          this.urls.splice(index, 1)
         }
-      })
+      }
     },
-    isInScreen (img) {
+    isInScreen (index, img) {
       if (img.getBoundingClientRect().top <= document.documentElement.clientHeight) {
         return true
       } else {
