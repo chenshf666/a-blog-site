@@ -65,7 +65,8 @@ export default {
   },
   filters: {
     toChunjing (str) {
-      return str.replace(/<[^>]+>/g, '').replace('<', '') + '...'
+      str = str.replace(/<[^>]+>/g, '').replace(/<.*$/, '') 
+      return str.slice(0,33)+ '...'
     }
   }
 }
@@ -73,8 +74,8 @@ export default {
 </script>
 
 <style scoped="scoped">
-.zhanwei{
-  height: 100px;
+.test .zhanwei{
+  height: 3em;
 }
 .test{
   width: 100%;
@@ -87,12 +88,13 @@ export default {
 }
 .blog_desc{
   box-sizing: border-box;
-  padding: 20px;
-  width: 800px;
-  height: 120px;
-  border: 1px solid #AAA;
+  padding: 1em;
+  width: 32em;
+  /*height: 5em;*/
   margin: auto;
+  margin-top: 2px;
   position: relative;
+  background-color: white;
 }
 .blog_desc a{
   text-decoration: none;
@@ -100,12 +102,8 @@ export default {
 }
 
 .blog_author{
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-
   display: block;
-
+  font-size: 0.8em;
 }
 .blog_title{
   font-weight: bolder;
@@ -114,8 +112,8 @@ export default {
 .blog_content{
   position: relative;
   display: block;
-
   color: #AAA;
+  font-size: 0.8em;
 }
 
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div class="register-box">
-      <input type="text" placeholder="请输入用户名" v-model="username" required="required"/>
-      <input type="password" placeholder="请输入密码" v-model="password" required="required"/>
-      <p v-if="warning.length > 1">{{warning}}</p>
-      <button @click="login">登录</button>
+      <el-input placeholder="请输入用户名" v-model="username" class='register-input'/></el-input>
+      <el-input placeholder="请输入密码" v-model="password" show-password class='register-input'/></el-input>
+      <el-button @click="login" class='register-button' type='primary'>登录</el-button>
+      <div class="login-tip"><router-link to='/register'>还没有账号？点此注册</router-link></div>
   </div>
 </template>
 
@@ -21,9 +21,8 @@ export default {
   methods: {
     login () {
       if (this.username == '' || this.password == '') {
-        this.warning = '请输入完整信息'
+        this.$message({type:'warning',showClose:true, message:'请输入完整信息'})
       } else {
-        this.warning = ''
         axios({
           method: 'post',
           url: '/api/login',
@@ -32,17 +31,28 @@ export default {
             password: this.password
           }
         }).then((response) => {
-          this.warning = response.data.msg
+          switch (response.data.status) {
+            case 0:
+              localStorage.setItem('token', response.data.token)
+              this.$parent.setLogin(this.username)
+              this.$router.push({path: '/'})
+              // 跳转
+              // 把token存到localStorage
+              break
+            case 1:
+              this.$parent.setLogin('')
+              this.$message({type: 'error', showClose: true, message: '用户名不存在或者密码错误'})
+              break
+            case 2:
+              this.$message({type: 'error', showClose: true, message: '发生异常，请重试'})
+              break
+          }
           if (response.data.status == 0) {
-            // 跳转
-            // 把token存到localStorage
-            console.log(response.data.token)
-            localStorage.setItem('token', response.data.token)
-            this.$parent.setLogin(this.username)
-            this.$router.push({path: '/'})
+            
+            
           }
         }).catch(() => {
-          this.warning = '发生异常'
+          this.$message({type:'warning',showClose:true, message:'发生异常，请重试'})
         })
       }
     }
@@ -50,16 +60,36 @@ export default {
 }
 </script>
 
-<style scoped>
-  .register-box input{
-    display: block;
-    margin: auto;
-  }
-  .register-box{
-    text-align: center;
-  }
-  p{
-    color: red;
-    margin: 0;
-  }
+<style>
+.register-box{
+  background: white;
+  border: 1px solid #AAA;
+  width: 24em;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 3em 6em 3em 6em;
+  margin-top: 1em;
+}
+
+.register-input{
+  font-size: 0.5em;
+  width: 24em;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+.register-button{
+  font-size: 0.5em;
+  width: 24em;
+  box-sizing: border-box;
+}
+
+.login-tip{
+  text-align: center;
+}
+.login-tip a{
+  text-decoration: none;
+  font-size: 0.2em;
+}
 </style>

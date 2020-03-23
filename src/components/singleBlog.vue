@@ -3,7 +3,8 @@
     <div class="whole_blog">
       <div class="zhanwei"></div>
       <div class="blog_title">{{title}}</div>
-      <div class="blog_desc">{{author}}{{time}}</div>
+      <div class="blog_author">作者:{{author}}</div>
+      <div class="blog_time">最后发布于{{time}}</div>
       <div ref='blog_body' class="ql-snow ql-editor ql-container"></div>
     </div>
   </div>
@@ -20,6 +21,8 @@ export default {
       time: '',
       author: '',
       urls: '',
+      isLogin: sessionStorage.getItem('isLogin'),
+      canDelete: false,
       imgs: [],
       editorOption: {
         theme: 'snow'
@@ -40,6 +43,9 @@ export default {
       this.time = response.data.create_time
       this.urls = JSON.parse(response.data.img_urls)
 
+      if(this.author === this.isLogin){
+        this.canDelete = true
+      }
       // 获取所有图像，没有指定src说明是上传的图片
       let allImgs = document.getElementsByTagName('img')
       for (let i of allImgs) {
@@ -89,7 +95,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .blog_container{
     width: 100%;
     height: 100%;
@@ -99,15 +105,31 @@ export default {
     top: 0;
     overflow: auto;
     z-index: -1;
+    
   }
   .whole_blog{
-    width: 1000px;
+    width: 42em;
+    padding: 1em;
     margin: auto;
+    background-color: white;
   }
-  .zhanwei{
-    height: 100px;
+  .whole_blog .zhanwei{
+    height: 3em;
   }
   img{
     max-width: 900px;
+  }
+  .blog_title{
+    font-weight: bolder;
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  .blog_author,.blog_time{
+    font-size: 0.8em;
+    display: inline-block;
+    margin-right: 0.8em;
+  }
+  .blog_time{
+    color:#AAA;
   }
 </style>

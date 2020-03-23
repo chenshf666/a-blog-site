@@ -1,10 +1,10 @@
 <template>
   <div class="register-box">
-      <input type="text" placeholder="请输入用户名" v-model="username" required="required"/>
-      <input type="password" placeholder="请输入密码" v-model="password1" required="required"/>
-      <input type="password" placeholder="请确认密码" v-model="password2" required="required"/>
-      <p v-if="warning.length > 1">{{warning}}</p>
-      <button @click="register">注册</button>
+      <el-input placeholder="请输入用户名" v-model="username" class='register-input'/></el-input>
+      <el-input placeholder="请输入密码" v-model="password1" show-password class='register-input'/></el-input>
+      <el-input placeholder="请确认密码" v-model="password2" show-password class='register-input'/></el-input>
+      <el-button @click="register" class='register-button' type='primary'>注册</el-button>
+      <div class="login-tip"><router-link to='/login'>已经有账号了？点此登录</router-link></div>
   </div>
 </template>
 
@@ -23,9 +23,9 @@ export default {
   methods: {
     register () {
       if (this.username == '' || this.password1 == '' || this.password2 == '') {
-        this.warning = '请输入完整信息';
+        this.$message({type:'warning',showClose:true, message:'请输入完整信息'})
       } else if (this.password1 != this.password2) {
-        this.warning = '两次密码输入不一致';
+        this.$message({type:'warning',showClose:true, message:'两次密码输入不一致'})
       } else {
         this.warning  = '';
         axios({
@@ -36,10 +36,21 @@ export default {
             password: this.password1
           }
         }).then((response)=>{
-          this.warning = response.data;
+          switch (response.data.status) {
+            case 0:
+              this.$message({type: 'success', showClose: true, message: '注册成功'})
+              break
+            case 1:
+              this.$parent.setLogin('')
+              this.$message({type: 'error', showClose: true, message: '用户名已经被注册'})
+              break
+            case 2:
+              this.$message({type: 'error', showClose: true, message: '发生异常，请重试'})
+              break
+          }
           
         }).catch(()=>{
-          this.warning = '发生异常';
+          this.$message({type:'warning',showClose:true, message:'发生异常，请重试'})
         })
       }
     }
@@ -47,16 +58,36 @@ export default {
 }
 </script>
 
-<style scoped>
-  .register-box input{
-    display: block;
-    margin: auto;
-  }
-  .register-box{
-    text-align: center;
-  }
-  p{
-    color: red;
-    margin: 0;
-  }
+<style>
+.register-box{
+  background: white;
+  border: 1px solid #AAA;
+  width: 24em;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 3em 6em 3em 6em;
+  margin-top: 1em;
+}
+
+.register-input{
+  font-size: 0.5em;
+  width: 24em;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+}
+
+.register-button{
+  font-size: 0.5em;
+  width: 24em;
+  box-sizing: border-box;
+}
+
+.login-tip{
+  text-align: center;
+}
+.login-tip a{
+  text-decoration: none;
+  font-size: 0.2em;
+}
 </style>
