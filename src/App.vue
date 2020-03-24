@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header :hasLogin='isLogin'></Header>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
 

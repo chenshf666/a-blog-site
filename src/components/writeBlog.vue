@@ -1,9 +1,9 @@
 <template>
-  <div class="edit_container" v-loading="loading"
+  <div class="writeBlog_edit_container" v-loading="loading"
     element-loading-text="拼命上传中">
-    <div class="blog-title"><input type="text" placeholder="请输入标题" v-model="title"/></div>
+    <div class="writeBlog_blog_title"><input type="text" placeholder="请输入标题" v-model="title"/></div>
     <quill-editor
-        class='editor'
+        class='writeBlog_editor'
         v-model="content"
         ref="myQuillEditor"
         :options="editorOption"
@@ -43,10 +43,11 @@ export default {
     onEditorFocus () {}, // 获得焦点事件
     onEditorChange () {}, // 内容改变事件
     saveLocal: function (event) {
-      this.warning = '保存中...'
+      this.loading = true
       localStorage.setItem('blog_draft', this.content)
       localStorage.setItem('blog_title', this.title)
-      this.warning = '保存成功'
+      this.$message({type: 'success', showClose: true, message: '保存成功'})
+      this.loading = false
     },
     sendToServer: function () {
       // 首先根据img的src转化为file
@@ -87,10 +88,12 @@ export default {
             this.$message({type: 'error', showClose: true, message: '发生异常，请重试'})
             break
         }
+        this.loading = false
       }).catch(() => {
         this.$message({type: 'error', showClose: true, message: '发生异常，请重试'})
+        this.loading = false
       })
-      this.loading = false
+      
     },
     getFileOfImg () {
       var imgs = document.getElementsByTagName('img')
@@ -122,8 +125,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.edit_container{
+<style>
+.writeBlog_edit_container{
   width: 42em;
   padding: 1em;
   margin: auto;
@@ -132,7 +135,7 @@ export default {
   top: 0.5em;
   overflow: hidden;
 }
-.edit_container button{
+.writeBlog_edit_container button{
   font-size: 0.8em;
   background-color: white;
   border: 1px solid blue;
@@ -143,21 +146,16 @@ export default {
   margin-right: 0.5em;
   float: right;
 }
-.edit_container .ql-container{
+.writeBlog_edit_container .ql-container{
   height: 28em;
 }
-.blog-title input{
+.writeBlog_blog_title input{
   box-sizing: border-box;
   width: 100%;
   font-size: 0.8em;
   margin-bottom: 1em;
   padding: 0.5em;
   border-radius: 0.2em;
-}
-
-.warning{
-    color: red;
-    margin: 0;
 }
 
 </style>

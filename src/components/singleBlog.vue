@@ -1,10 +1,10 @@
 <template>
-   <div class="blog_container" @scroll="lazyload">
-    <div class="whole_blog">
-      <div class="zhanwei"></div>
-      <div class="blog_title">{{title}}</div>
-      <div class="blog_author">作者:{{author}}</div>
-      <div class="blog_time">最后发布于{{time}}</div>
+   <div class="singleBlog_blog_container" @scroll="lazyload">
+    <div class="singleBlog_whole_blog">
+      <div class="singleBlog_zhanwei"></div>
+      <div class="singleBlog_blog_title">{{title}}</div>
+      <div class="singleBlog_blog_author"><router-link :to='"/userBlogs/"+author'>{{author}}</router-link></div>
+      <div class="singleBlog_blog_time">最后发布于{{time}}</div>
       <div ref='blog_body' class="ql-snow ql-editor ql-container"></div>
     </div>
   </div>
@@ -73,7 +73,7 @@ export default {
       for (var index = this.imgs.length - 1; index > -1; index--) {
         let item = this.imgs[index]
         if (!item.src && this.isInScreen(index, item)) {
-          item.src = 'http://localhost:8000' + this.urls[index]
+          item.src = this.urls[index]
           // onload之后去除假的宽高，还原图像自身大小
           item.onload = () => {
             item.removeAttribute('width')
@@ -95,8 +95,8 @@ export default {
 }
 </script>
 
-<style scoped>
-  .blog_container{
+<style>
+  .singleBlog_blog_container{
     width: 100%;
     height: 100%;
     margin: auto;
@@ -107,29 +107,37 @@ export default {
     z-index: -1;
     
   }
-  .whole_blog{
+  .singleBlog_whole_blog{
     width: 42em;
     padding: 1em;
     margin: auto;
     background-color: white;
   }
-  .whole_blog .zhanwei{
+  .singleBlog_whole_blog .singleBlog_zhanwei{
     height: 3em;
   }
-  img{
-    max-width: 900px;
-  }
-  .blog_title{
+  
+  .singleBlog_blog_title{
     font-weight: bolder;
     font-size: 1.5em;
     margin-bottom: 0.5em;
   }
-  .blog_author,.blog_time{
+  .singleBlog_blog_author,.singleBlog_blog_time{
     font-size: 0.8em;
     display: inline-block;
     margin-right: 0.8em;
   }
-  .blog_time{
+  .singleBlog_blog_time{
     color:#AAA;
+  }
+  .singleBlog_blog_author a{
+    color: blue;
+    text-decoration: none;
+  }
+</style>
+
+<style>
+  img{
+    max-width: 900px;
   }
 </style>

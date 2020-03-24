@@ -3,10 +3,9 @@
     <div class="nav">
       <router-link to='/' exact>首页</router-link>
       <router-link to='/writeBlog' exact>写博客</router-link>
-      <router-link to='/hello' exact>个人中心</router-link>
       <router-link to='/register' v-if='!hasLogin' exact>注册</router-link>
       <router-link to='/login' v-if='!hasLogin' exact>登录</router-link>
-      <router-link v-if='!!hasLogin' to='/hello' exact>{{hasLogin}}</router-link>
+      <router-link v-if='!!hasLogin' :to='"/userBlogs/"+hasLogin' exact>{{hasLogin}}</router-link>
       <span v-if='!!hasLogin' @click='logout'><a href="javascript:void(0)">注销</a></span>
     </div>
   </div>

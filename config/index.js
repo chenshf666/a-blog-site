@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-          target: 'http://localhost:8000',
+          target: 'http://localhost:8000/api/',
           changeOrigin: true, //是否跨域
           ws: true,
           pathRewrite: {
@@ -58,8 +58,8 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsSubDirectory: '',
+    assetsPublicPath: '/static/blog/',
 
     /**
      * Source Maps
