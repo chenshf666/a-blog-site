@@ -59,37 +59,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.register-box{
-  background: white;
-  border: 1px solid #AAA;
-  width: 24em;
-  margin: auto;
-  box-sizing: border-box;
-  padding: 3em 6em 3em 6em;
-  margin-top: 1em;
-}
-
-.register-input{
-  font-size: 0.5em;
-  width: 24em;
-  display: block;
-  box-sizing: border-box;
-  margin-bottom: 1em;
-}
-
-.register-button{
-  font-size: 0.5em;
-  width: 24em;
-  box-sizing: border-box;
-}
-
-.login-tip{
-  text-align: center;
-}
-.login-tip a{
-  text-decoration: none;
-  font-size: 0.2em;
-}
-</style>

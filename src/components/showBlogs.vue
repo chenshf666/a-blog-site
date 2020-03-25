@@ -184,4 +184,10 @@ export default {
   color: red;
   float: right;
 }
+
+@media only screen and (max-width: 1200px){
+  .showBlogs_blog_desc{
+    width: 100%;
+  }
+}
 </style>

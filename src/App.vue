@@ -58,11 +58,19 @@ export default {
 body{
   background-color: #F5F6F7;
 }
-@media only screen and (min-width: 500px){
+@media only screen and (min-width: 1200px){
   #app{
     font-size: 25px; /*全局字体大小, 子组件则使用rem来动态适应*/
   }
-
 }
-
+@media only screen and (max-width: 1200px) and (min-width: 600px){
+  #app{
+    font-size: 30px; /*全局字体大小, 子组件则使用rem来动态适应*/
+  }
+}
+@media only screen and (max-width: 600px){
+  #app{
+    font-size: 15px; /*全局字体大小, 子组件则使用rem来动态适应*/
+  }
+}
 </style>

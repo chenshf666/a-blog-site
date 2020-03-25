@@ -137,7 +137,38 @@ export default {
 </style>
 
 <style>
-  img{
-    max-width: 900px;
+
+  @media only screen and (min-width: 1200px){
+    img{
+      max-width: 900px;
+    }
+  }
+  @media only screen and (max-width: 1200px) and (min-width: 600px){
+    img{
+      max-width: 90%;
+    }
+    .singleBlog_blog_container{
+      width: 100%;
+      height: 100%;
+    }
+    .singleBlog_whole_blog{
+      width: 100%;
+      padding: 1em;
+      box-sizing: border-box;
+    }
+  }
+  @media only screen and (max-width: 600px){
+    img{
+      max-width: 90%;
+    }
+    .singleBlog_blog_container{
+      width: 100%;
+      height: 100%;
+    }
+    .singleBlog_whole_blog{
+      width: 100%;
+      padding: 1em;
+      box-sizing: border-box;
+    }
   }
 </style>

@@ -62,24 +62,16 @@ export default {
 .register-box{
   background: white;
   border: 1px solid #AAA;
-  width: 24em;
   margin: auto;
   box-sizing: border-box;
-  padding: 3em 6em 3em 6em;
-  margin-top: 1em;
 }
 
 .register-input{
-  font-size: 0.5em;
-  width: 24em;
   display: block;
   box-sizing: border-box;
-  margin-bottom: 1em;
 }
 
-.register-button{
-  font-size: 0.5em;
-  width: 24em;
+.register-box .register-button{
   box-sizing: border-box;
 }
 
@@ -88,6 +80,73 @@ export default {
 }
 .login-tip a{
   text-decoration: none;
-  font-size: 0.2em;
+}
+
+@media only screen and (min-width: 1200px){
+  .register-box{
+    width: 24em;
+    padding: 3em 6em 3em 6em;
+    margin-top: 1em;
+  }
+  
+  .register-input{
+    font-size: 0.5em;
+    width: 24em;
+    margin-bottom: 1em;
+  }
+  
+  .register-box .register-button{
+    font-size: 0.5em;
+    width: 24em;
+  }
+  .login-tip a{
+    font-size: 0.5em;
+  }
+}
+@media only screen and (max-width: 1200px) and (min-width: 600px){
+  .register-box{
+    width: 24em;
+    padding: 3em 6em 3em 6em;
+    margin-top: 1em;
+  }
+  
+  .register-input{
+    font-size: 0.5em;
+    width: 24em;
+    margin-bottom: 1em;
+  }
+  
+  .register-box .register-button{
+    font-size: 0.5em;
+    width: 24em;
+  }
+  .login-tip a{
+    font-size: 0.5em;
+  }
+}
+@media only screen and (max-width: 600px){
+  .register-box{
+    width: 90%;
+    margin-top: 1em;
+    padding-top: 3em;
+    padding-bottom: 3em;
+  }
+  
+  .register-input{
+    font-size: 0.5em;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 1em;
+  }
+  
+  .register-box .register-button{
+    display: block;
+    font-size: 0.5em;
+    width: 80%;
+    margin: auto;
+  }
+  .login-tip a{
+    font-size: 0.5em;
+  }
 }
 </style>

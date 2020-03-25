@@ -147,7 +147,6 @@ export default {
   float: right;
 }
 .writeBlog_edit_container .ql-container{
-  height: 28em;
 }
 .writeBlog_blog_title input{
   box-sizing: border-box;
@@ -158,4 +157,10 @@ export default {
   border-radius: 0.2em;
 }
 
+
+@media only screen and (max-width: 1200px){
+  .writeBlog_edit_container{
+    width: 80%;
+  }
+}
 </style>
