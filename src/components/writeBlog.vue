@@ -160,7 +160,8 @@ export default {
 
 @media only screen and (max-width: 1200px){
   .writeBlog_edit_container{
-    width: 80%;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 </style>

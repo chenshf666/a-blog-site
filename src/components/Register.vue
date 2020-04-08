@@ -39,6 +39,7 @@ export default {
           switch (response.data.status) {
             case 0:
               this.$message({type: 'success', showClose: true, message: '注册成功'})
+              setTimeout(()=>{this.$router.push('/login')},1000)
               break
             case 1:
               this.$parent.setLogin('')
@@ -110,10 +111,11 @@ export default {
     margin-top: 1em;
   }
   
-  .register-input{
+  .register-box .register-input{
     font-size: 0.5em;
     width: 24em;
     margin-bottom: 1em;
+    display: block;
   }
   
   .register-box .register-button{
@@ -132,11 +134,12 @@ export default {
     padding-bottom: 3em;
   }
   
-  .register-input{
+  .register-box .register-input{
     font-size: 0.5em;
     width: 80%;
     margin: auto;
     margin-bottom: 1em;
+    display: block;
   }
   
   .register-box .register-button{
